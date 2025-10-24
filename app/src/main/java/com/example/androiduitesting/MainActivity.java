@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
@@ -12,7 +13,7 @@ import android.widget.ListView;
 
 import java.util.ArrayList;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements ShowActivityDialogFragment.ShowActivityDialogListener {
     // Declare the variables so that you will be able to reference it later.
     ListView cityList;
     EditText newName;
@@ -63,6 +64,12 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v) {
                 cityAdapter.clear();
             }
+        });
+
+        cityList.setOnItemClickListener((adapterView, view, i, l) -> {
+            String cityName = cityAdapter.getItem(i);
+            ShowActivityDialogFragment showActivityDialogFragment = ShowActivityDialogFragment.newInstance(cityName);
+            showActivityDialogFragment.show(getSupportFragmentManager(), "City Details");
         });
     }
 }
